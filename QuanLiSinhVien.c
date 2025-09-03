@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 
 typedef struct {
     int maSV;
@@ -8,8 +7,10 @@ typedef struct {
     char lop[10];
     float diem;
 } SinhVien;
+
 SinhVien danhSachSV[100];
 int soLuongSV = 0;
+
 void hienThiMenu() {
     printf("========================================\n");
     printf("        HE THONG QUAN LY SINH VIEN      \n");
@@ -32,15 +33,19 @@ void themSinhVien() {
     while(getchar() != '\n');
 
     printf("Nhap ten sinh vien: ");
-    gets(danhSachSV[soLuongSV].ten);
+    fgets(danhSachSV[soLuongSV].ten, 50, stdin);
+    danhSachSV[soLuongSV].ten[strcspn(danhSachSV[soLuongSV].ten, "\n")] = '\0';
 
     printf("Nhap lop: ");
-    gets(danhSachSV[soLuongSV].lop);
+    fgets(danhSachSV[soLuongSV].lop, 10, stdin);
+    danhSachSV[soLuongSV].lop[strcspn(danhSachSV[soLuongSV].lop, "\n")] = '\0';
 
     printf("Nhap diem: ");
     scanf("%f", &danhSachSV[soLuongSV].diem);
+    
+    while(getchar() != '\n');
     soLuongSV++;
-    printf("\n✅ Them sinh vien thanh cong!\n");
+    printf("\n Them sinh vien thanh cong!\n");
 }
 void hienThiDanhSach() {
     printf("\n--- DANH SACH SINH VIEN ---\n");
@@ -65,6 +70,7 @@ int main() {
         printf("Vui long nhap lua chon cua ban: ");
         scanf("%d", &luaChon);
         while(getchar() != '\n');
+
         switch (luaChon) {
             case 1:
                 hienThiDanhSach();
@@ -74,7 +80,7 @@ int main() {
                 break;
             case 0:
                 printf("\n--- Cam on da su dung he thong! ---\n");
-                return 0;
+                return 0; 
             default:
                 printf("Lua chon khong hop le. Vui long nhap lai!\n");
         }
